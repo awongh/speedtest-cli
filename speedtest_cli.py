@@ -218,7 +218,6 @@ def build_request(url, data=None, headers={}):
         schemed_url = url
 
     headers['Accept-Encoding'] = """gzip, deflate, sdch"""
-    headers['User-Agent'] = user_agent
     return Request(schemed_url, data=data, headers=headers)
 
 
