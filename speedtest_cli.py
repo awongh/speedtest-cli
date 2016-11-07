@@ -24,6 +24,8 @@ import socket
 import timeit
 import platform
 import threading
+from StringIO import StringIO
+import gzip
 
 __version__ = '0.3.4'
 
@@ -215,6 +217,7 @@ def build_request(url, data=None, headers={}):
     else:
         schemed_url = url
 
+    headers['Accept-Encoding'] = """gzip, deflate, sdch""" return Request(schemed_url, data=data, headers=headers)
     headers['User-Agent'] = user_agent
     return Request(schemed_url, data=data, headers=headers)
 
