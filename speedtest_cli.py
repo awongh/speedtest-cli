@@ -217,6 +217,7 @@ def build_request(url, data=None, headers={}):
     else:
         schemed_url = url
 
+    headers['User-Agent'] = user_agent
     headers['Accept-Encoding'] = """gzip, deflate, sdch"""
     return Request(schemed_url, data=data, headers=headers)
 
@@ -384,7 +385,11 @@ def getConfig():
         sys.exit(1)
     configxml = []
     while 1:
-        configxml.append(uh.read(10240))
+        buf = StringIO(uh.read(10240))
+        f = gzip.GzipFile(fileobj=buf)
+        data = f.read()
+
+        configxml.append(data)
         if len(configxml[-1]) == 0:
             break
     if int(uh.code) != 200:
